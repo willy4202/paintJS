@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +8,28 @@
     <link rel="stylesheet" href="style.css">
     <title>paintJS</title>
 </head>
+
 <body>
+    <canvas id="jsCnavas" class="cssCanvas"></canvas>
+    <!-- 커맨드 / 를 사용하면 비활성화가 가능하다.
+        우선 js를 사용할땐 ,id를, css를 사용한다면 class를 사용한다는 규칙으로 진행해보자!-->
+    <div class="controls"> 
+        <div id="jsControl" class="controls__colors">
+            <div class="control_color" style="background-color:black"></div>
+            <div class="control_color" style="background-color:white"></div>
+            <div class="control_color" style="background-color:red"></div>
+            <div class="control_color" style="background-color:orange "></div>
+            <div class="control_color" style="background-color:yellow "></div>
+            <div class="control_color" style="background-color:greenyellow "></div>
+            <div class="control_color" style="background-color:skyblue"></div>
+            <div class="control_color" style="background-color:blue"></div>
+            <div class="control_color" style="background-color:purple "></div>
+        </div>
+    </div>
+    <!-- 참고로 div.클래스이름 를 한다면 class 값이 설정한 이름으로 감싸진 태그가 생성된다.
+            비슷한 경우로, span#아이디이름을 한다면 span id ="아이디이름" 태그가 만들어진다.
+            덧붙여, 태그.아이디값 * 숫자 를 입력하면 해당 아이디 값이 걸린 태그가 숫자만큼 만들어진다.  -->
     <script src="app.js"></script>
 </body>
+
 </html>
