@@ -13,7 +13,21 @@
     <canvas id="jsCnavas" class="cssCanvas"></canvas>
     <!-- 커맨드 / 를 사용하면 비활성화가 가능하다.
         우선 js를 사용할땐 ,id를, css를 사용한다면 class를 사용한다는 규칙으로 진행해보자!-->
-    <div class="controls"> 
+    <div class="controls">
+        <div class="controls_range">
+            <input 
+            type="range" 
+            id="jsRange" 
+            min="0.1" 
+            max="5.0" 
+            value="2.5" 
+            step="0.1"
+            />
+        </div>
+        <div class="controls_btns">
+            <button id="jsMode">Fill</button>
+            <button id="jsSave">Save</button>
+        </div>
         <div id="jsControl" class="controls__colors">
             <div class="control_color" style="background-color:black"></div>
             <div class="control_color" style="background-color:white"></div>

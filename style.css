@@ -11,19 +11,53 @@ body{
 
 
 .cssCanvas{
-    width: 700px;
-    height: 700px;
+    width: 600px;
+    height: 600px;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.controls .controls__colors{
-    display: flex;
-}
 
 .controls{
-    margin-top: 70px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controls .controls_btns{
+    margin-bottom: 30px;
+}
+
+.controls_btns button{
+    all:unset;
+    cursor: pointer;
+    background-color: white;
+    padding: 5px 10px;
+    width: 50px;
+    text-align: center;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+}
+/* 해당 unset은 모든 css스타일을 초기화 시켜버린다. 
+    기본브라우저의 못생긴 스타일을 밀어버리고 새로 시작하기 좋다. 
+    padding 뒤에 두 숫자는 세로, 가로 길이를 뜻한다.
+    uppercase는 모든 문자를 대문자로 바꿔준다.
+    */
+
+.controls_btns button:active{
+    transform: scale(0.95);
+}
+/* 해당 코드는 버튼이 눌릴때 변경되는 크기를 나타낸다. */
+
+.controls .controls__colors{
+    display: flex;
 }
 
 .controls__colors
@@ -32,4 +66,9 @@ body{
     height: 50px;
     border-radius: 25px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.controls
+.controls_range{
+    margin-bottom: 20px;
 }
