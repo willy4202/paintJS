@@ -32,10 +32,12 @@ function onMove(event) {
 
 function startTouch(event) {
     draw = true;
+    ctx.beginPath();
 }
 
 function endTouch(event) {
     draw = false;
+    ctx.closePath();
 }
 
 function touchMove(event) {
