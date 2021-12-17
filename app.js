@@ -1,13 +1,23 @@
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext('2d');
+const colors = document.getElementsByClassName("jsColor");
+const range = document.querySelector("#jsRange")
+const fill = document.querySelector("#jsMode")
+const save = document.querySelector("#jsSave")
+
+const OGCOLOR = "black"
 
 canvas.width = 500;
 canvas.height = 500;
 
-ctx.fillStyle = 'black';
-ctx.linewidth = 2.5;
+ctx.fillStyle = 'white';
+ctx.fillRect(0,0,canvas.width, canvas.height)
+ctx.strokeStyle = OGCOLOR;
+ctx.fillStyle = OGCOLOR;
+ctx.lineWidth = 2.5;
 
 let draw = false;
+let filling = false;
 
 function stopDraw() {
     draw = false;
@@ -45,11 +55,13 @@ function touchMove(event) {
     const ty = event.touches[0].clientY;
     event.preventDefault()
     if (!draw) {
-        ctx.beginPath(tx, ty);
+        ctx.moveTo(tx, ty);
     } else {
         ctx.lineTo(tx, ty);
         ctx.stroke();
     }
+
+
     // if(!draw){
     //     ctx.beginPath();
     //     ctx.moveTo(tx, ty);
@@ -65,7 +77,55 @@ if (canvas) {
     canvas.addEventListener("mousedown", startDraw);
     canvas.addEventListener("mouseup", stopDraw);
     canvas.addEventListener("mouseleave", stopDraw);
-    canvas.addEventListener("touchmove", touchMove);
-    canvas.addEventListener("touchstart", startTouch);
-    canvas.addEventListener("touchend", endTouch);
+    canvas.addEventListener("touchmove", touchMove, false);
+    canvas.addEventListener("touchstart", startTouch, false);
+    canvas.addEventListener("touchend", endTouch, false);
+    canvas.addEventListener("click", fillClick);
+}
+
+function changeC(event) {
+    const color = event.target.style.backgroundColor;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+}
+
+Array.from(colors).forEach(color => color.addEventListener("click", changeC));
+// 배열을 만들어주고, 그 안에서 각각의 함수를 시행한다. 이벤트리스너로 들릴때마다
+
+function handleRange(event) {
+    const size = event.target.value;
+    ctx.lineWidth = size;
+}
+
+if (range) {
+    range.addEventListener("input", handleRange);
+}
+
+
+function hamdlemode(event) {
+    if (filling === true) {
+        filling = false;
+        fill.innerText = "Paint";
+    } else {
+        filling = true;
+        fill.innerText = "FILL"
+    }
+}
+
+fill.addEventListener("click", hamdlemode);
+
+function fillClick(event) {
+    if (filling) {
+        ctx.fillRect(0,0,canvas.width, canvas.height)
+    }
+}
+
+save.addEventListener("click", savePic);
+
+function savePic(event) {
+    const image = canvas.toDataURL("image/jpg");
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "save.png"
+    link.click();    
 }
