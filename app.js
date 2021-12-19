@@ -4,6 +4,7 @@ const colors = document.getElementsByClassName("jsColor");
 const range = document.querySelector("#jsRange")
 const fill = document.querySelector("#jsMode")
 const save = document.querySelector("#jsSave")
+const erase = document.querySelector("#jsErase")
 
 const OGCOLOR = "black"
 
@@ -42,17 +43,20 @@ function onMove(event) {
 
 function startTouch(event) {
     draw = true;
+    const sx = event.touches[0].pageX
+    const sy = event.touches[0].pageY
+    console.log(sx, sy);
     ctx.beginPath();
 }
 
 function endTouch(event) {
-    draw = false;
     ctx.closePath();
+    draw = false;
 }
 
 function touchMove(event) {
-    const tx = event.touches[0].clientX;
-    const ty = event.touches[0].clientY;
+    const tx = event.changedTouches[0].pageX;
+    const ty = event.changedTouches[0].pageY;
     event.preventDefault()
     if (!draw) {
         ctx.moveTo(tx, ty);
@@ -77,9 +81,9 @@ if (canvas) {
     canvas.addEventListener("mousedown", startDraw);
     canvas.addEventListener("mouseup", stopDraw);
     canvas.addEventListener("mouseleave", stopDraw);
-    canvas.addEventListener("touchmove", touchMove, false);
-    canvas.addEventListener("touchstart", startTouch, false);
-    canvas.addEventListener("touchend", endTouch, false);
+    canvas.addEventListener("touchmove", touchMove);
+    canvas.addEventListener("touchstart", startTouch);
+    canvas.addEventListener("touchend", endTouch);
     canvas.addEventListener("click", fillClick);
 }
 
@@ -100,7 +104,6 @@ function handleRange(event) {
 if (range) {
     range.addEventListener("input", handleRange);
 }
-
 
 function hamdlemode(event) {
     if (filling === true) {
@@ -129,3 +132,9 @@ function savePic(event) {
     link.download = "save.png"
     link.click();    
 }
+
+function clearclick(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+};
+
+erase.addEventListener("click", clearclick);
