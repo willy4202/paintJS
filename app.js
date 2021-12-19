@@ -19,6 +19,8 @@ ctx.lineWidth = 2.5;
 
 let draw = false;
 let filling = false;
+let StartT = false;
+let EndT = false;
 
 function stopDraw() {
     draw = false;
@@ -43,6 +45,7 @@ function onMove(event) {
 
 function startTouch(event) {
     draw = true;
+    StartT = true;
     const sx = event.touches[0].pageX
     const sy = event.touches[0].pageY
     console.log(sx, sy);
@@ -52,11 +55,12 @@ function startTouch(event) {
 function endTouch(event) {
     ctx.closePath();
     draw = false;
+    EndT = false;
 }
 
 function touchMove(event) {
-    const tx = event.changedTouches[0].pageX;
-    const ty = event.changedTouches[0].pageY;
+    const tx = event.changedTouches[0].clientX;
+    const ty = event.changedTouches[0].clientY;
     event.preventDefault()
     if (!draw) {
         ctx.moveTo(tx, ty);
@@ -81,9 +85,9 @@ if (canvas) {
     canvas.addEventListener("mousedown", startDraw);
     canvas.addEventListener("mouseup", stopDraw);
     canvas.addEventListener("mouseleave", stopDraw);
-    canvas.addEventListener("touchmove", touchMove);
-    canvas.addEventListener("touchstart", startTouch);
-    canvas.addEventListener("touchend", endTouch);
+    canvas.addEventListener("touchmove", touchMove, false);
+    canvas.addEventListener("touchstart", startTouch, false);
+    canvas.addEventListener("touchend", endTouch, false);
     canvas.addEventListener("click", fillClick);
 }
 
@@ -130,11 +134,11 @@ function savePic(event) {
     const link = document.createElement("a");
     link.href = image;
     link.download = "save.png"
-    link.click();    
+    link.click();  
 }
 
 function clearclick(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-};
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 erase.addEventListener("click", clearclick);
